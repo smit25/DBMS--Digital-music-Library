@@ -14,6 +14,15 @@ app = Flask(__name__,template_folder='template')
 
 # mysql = MySQL(app)
 @app.route('/',methods=['POST','GET'])
+def base():
+	if request.method == 'POST' and request.form['nav'] == 'login':
+		return redirect(url_for('login'))
+	if request.method == 'POST' and request.form['nav'] == 'subscribe':
+		return redirect(url_for('subscribe'))
+	if request.method == 'POST' and request.form['nav'] == 'category':
+		return redirect(url_for('category'))
+	else:
+		return redirect(url_for('index'))
 @app.route('/home',methods =['POST','GET'])
 def index():
 	if request.method == 'POST':
