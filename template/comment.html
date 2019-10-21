@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link href="css/signin.css" rel="stylesheet">
+ <div class="login">
+  <div class="heading">
+    <h2>Sign in</h2>
+    <form action="" method="POST">
+
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+        <input type="text" class="form-control" name="comment" placeholder="Enter the comment">
+          </div>
+
+        <button type="submit" class="float" name="comment" value = "enter_comment">Comment!</button>
+       </form>
+    </div>
+ </div>
+ <div>
+ 	<h3> Your comment is: </h3>
+ 	<p>{{com}}</p>
+ </div>
+ <h3> View all comments </h3>
+ <form method = "post">
+ 	<button type="submit" class="btn btn-primary mx-auto" name = "comment" value = "view_com_s" >View Comments on this song</button >
+ </form>
+ <form method = "post">
+ 	<button type="submit" class="btn btn-primary mx-auto" name = "comment" value = "view_com_u" >View Comments of this user</button >
+ </form>
+{% if check == 1 %}
+<ul>
+{% for i in view_com %}
+<li>
+	<p>{{i}}</p>
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if check == 2 %}
+<ul>
+{% for i in view_com_u %}
+<li>
+	<p>{{i}}</p>
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock  %}

@@ -27,7 +27,7 @@ def base():
 def index():
 	if request.method == 'POST':
 		return redirect(url_for('login'))
-	return render_template('/home.html', title = 'Home')
+	return render_template('home.html', title = 'Home')
 @app.route('/login',methods = ['GET','POST'])
 def login():
 	if request.method == 'POST' and request.form['sign'] == 'signin':
@@ -36,6 +36,7 @@ def login():
 		return redirect(url_for('signup'))
 	return render_template('login.html', title = 'Login')
 
+login =0
 @app.route('/login/signin', methods = ['GET','POST'])
 def signin():
 	if request.method == 'POST':
@@ -51,6 +52,7 @@ def signin():
 			print("Login Successful")
 			f_name=cur.execute("SELECT firstname from user as u where u.password = 's_pass'")
 			username=f_name
+			login=1
 			return redirect(url_for('playlist', username=username))
 		else:
 			print("Enter the correct password!")
@@ -60,6 +62,7 @@ def signin():
 @app.route('/login/signup', methods = ['GET','POST'])
 def signup():
 	error = False
+	login=1
 	if request.method == 'POST':
 		User= request.form
 		f_name=User(f_name)
@@ -147,9 +150,15 @@ def songs(username,play_name):
 		elif 'playlist_info' in request.form:
 			if request.method == 'POST':
 				song_name=request.form
+				info=cur.execute("SELECT info from playlist where playlist_id in ( SELECT playlist_id from songs where songs.title = 'song_name')")
+
+		elif 'comment' in request.form:
+			if request.method == 'POST':
+				song_name=request.form
+				return redirect(url_for('comment'), song_name = song_name, username = username, play_name = play_name)
+       
        
 				# cur=mysql.connection.cursor()
-				info=cur.execute("SELECT info from playlist where playlist_id in ( SELECT playlist_id from songs where songs.title = 'song_name')")
 				# cur.close()
     	
 	return render_template('songs.html', title = '<play_name>', songs=songs, play_name = play_name, info=info, username=username)
@@ -169,6 +178,36 @@ def upload(username,play_name):
 	return rediect('/<username>/<play_name>', username=username, play_name = play_name,)
 	return render_template('upload.html', title = 'upload', username=username,  play_name = play_name)
 
+app.route('/subscribe', methods = ['GET','POST'])
+def subscribe(username):
+	if request.method == 'POST':
+		user_s=request.form['user_s']
+
+		cur.execute(" UPDATE user set user.subscription = user.subscription +1 where user.f_name = 'user_s' ")
+		message= "Thank You for subscribing"
+	else:
+		message = " Please type the name of the user you want to subscribe"
+	return render_template('subscribe.html', title ='subscribe', message = message)
+
+app.route('/<username>/<song_name>/comment', methods = ['GET','POST'])
+def comment(username, play_name,song_name):
+	check = 0
+	if request.method == 'POST' and request.form['comment'] == 'enter_comment':
+		com=request.form['comment']
+		cur.execute("INSERT INTO comments(text_c,song_id,user_id) VALUES(%s,%d), (com,song_name,user_id) where user_id in( SELECT user_id in user where user.firstname = 'username')")
+
+	elif request.method == 'POST' and request.form['comment'] == 'view_com_s':
+		check =1
+		view_com=cur.execute("SELECT text_c from comments where song_id in (SELECT song_id from songs where songs.title='song_name')")
+
+	elif request.method == 'POST' and request.form['comment'] == 'view_com_u':
+		check =2
+		view_com=cur.execute("SELECT text_c from comments where user_id in (SELECT user_id from user where user.firstname='username')")
+
+	return render_template('comment.html', title = '<username>/<song_name>/comment',com=com, view_com = view_com,check=check)
+
+
+# cur.close()
 if __name__ == '__main__':
     app.run(debug=True)
 
