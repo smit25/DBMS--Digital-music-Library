@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link href="css/signin.css" rel="stylesheet">
+ <div class="createplaylist">
+  <div class="heading">
+    <h2>Upload Song</h2>
+    <form action="" method="POST">
+
+      <div class="input-group input-group-lg">
+       
+        <input type="text" class="form-control" name="Title" placeholder="Title of Song">
+          </div>
+
+        <div class="input-group input-group-lg">
+         
+          <input type="text" class="form-control" name = "Info" placeholder="Some info about song">
+        </div>
+
+        <div class="input-group input-group-lg">
+         
+          <input type="text" class="form-control" name = "link" placeholder="song url">
+        </div>
+         
+    
+        <button type="submit" class="float">Upload</button>
+       </form>
+    </div>
+ </div>
+
+{% endblock %}

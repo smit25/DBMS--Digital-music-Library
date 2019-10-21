@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <link href="css/search.css" rel="stylesheet">
+<form method="post">
+  <input type="text" class="textbox" placeholder="Search" name = "playlist">
+  <input title="Search" value="" type="submit" class="button">
+</form>
+<br>
+<h2 class =""> Playlists </h2>
+<div class ="">
+	{% for item in playlist %}
+	<ul>
+		<li>item['title']</li>
+
+	</ul>
+	{% endfor %}
+</div>
+<div class="container d-flex h-100 align-items-center">
+	<div class = "mx-auto text-center">
+		   <a href="createplaylist.html" class="btn btn-primary js-scroll-trigger">Create Playlist</a>
+	</div>
+</div>
+<div>
+	<h3>For getting song info</h3>
+	<form method ="post" class =" ">
+	  <input type="text" class="textbox" placeholder="Search" name = "playlist">
+	  <input title="Search" value="I" type="submit" class="button">
+	</form>
+	</div>
+{% if check == 1 %}
+<div class ="">
+	<h4>{{ info }}</h4>
+	</div>
+{% endif %}
+{% endblock %}

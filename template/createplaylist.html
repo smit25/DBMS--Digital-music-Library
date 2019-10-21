@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% block title %}
+Create - Playlist
+{% endblock %}
+<link href="css/signin.css" rel="stylesheet">
+ <div class="createplaylist">
+  <div class="heading">
+    <h2>Create Playlist</h2>
+    <form action="" method="POST">
+
+      <div class="input-group input-group-lg">
+       
+        <input type="text" class="form-control" name="Title" placeholder="Title of Playlist">
+          </div>
+
+        <div class="input-group input-group-lg">
+         
+          <input type="password" class="form-control" name = "Info" placeholder="Some info about playlist">
+        </div>
+         
+    
+        <button type="submit" class="float">Create</button>
+       </form>
+    </div>
+ </div>
+
+{% endblock %}
