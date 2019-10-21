@@ -3,6 +3,8 @@ from flask import Flask,render_template, flash, redirect, request, url_for
 # from flask_mysqldb import MySQL 
 import mysql.connector
 
+cur = None
+
 try:
     connection = mysql.connector.connect(user='root', password='impact25', host='localhost', database='DBMS')
     cur = connection.cursor()
