@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>CAtegory - {{s}}</h2>
+<div>
+	<ul>
+		{% for i,j in song_cat, song_link %}
+		<li>{{i}}, link : {{j}} </li>
+		<br>
+	</ul>
+</div>
+
+{% endblock  %}

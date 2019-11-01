@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+ <ul>
+ {% for t in types %}
+
+<li>
+	<p>{{t}}</p>
+</li>
+{% endfor %}
+</ul>
+
+<h2> Choose a category </h2>
+	<form method ="post" class =" ">
+	  <input type="text" class="textbox" placeholder="Search" name = "category">
+	  <input title="Search" value="I" type="submit" class="button">
+{% endblock  %}

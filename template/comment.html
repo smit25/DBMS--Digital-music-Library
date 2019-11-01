@@ -24,12 +24,13 @@
  <form method = "post">
  	<button type="submit" class="btn btn-primary mx-auto" name = "comment" value = "view_com_s" >View Comments on this song</button >
  </form>
+
  <form method = "post">
  	<button type="submit" class="btn btn-primary mx-auto" name = "comment" value = "view_com_u" >View Comments of this user</button >
  </form>
 {% if check == 1 %}
 <ul>
-{% for i in view_com %}
+{% for i in view_com_s %}
 <li>
 	<p>{{i}}</p>
 </li>
