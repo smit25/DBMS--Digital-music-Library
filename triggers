@@ -1,0 +1,26 @@
+//TRIGGERS
+
+Drop TRIGGER IF EXISTS songDeleteTrigger;
+              DELIMITER //
+              CREATE TRIGGER songDeleteTrigger
+              BEFORE DELETE ON songs
+                     FOR EACH ROW
+                     BEGIN
+                       DELETE FROM comments WHERE OLD.song_id = song_id;
+                       DELETE FROM category WHERE OLD.song_id = song_id;
+                       DELETE FROM playlist WHERE OLD.song_id = song_id;
+                       
+                     END;//
+            DELIMITER ;
+
+
+Drop TRIGGER IF EXISTS playlistDeleteTrigger;
+		DELIMITER//
+		CREATE TRIGGER playlistDeleteTrigger
+		BEFORE DELETE ON playlist
+			FOR EACH ROW
+			BEGIN
+			  DELETE FROM songs where OLD.playlist_id = playlist_id;
+
+			END;//
+		DELIMITER;
